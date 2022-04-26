@@ -3,10 +3,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
+import { Register } from 'src/register/register.entity';
 import EncryptTransformer from './transformers/encrypt.transformer';
 
 @ObjectType()
@@ -39,4 +41,7 @@ export class User {
   @Field()
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @OneToMany(() => Register, (register) => register.userConnection)
+  registerConnection: Promise<Register[]>;
 }
