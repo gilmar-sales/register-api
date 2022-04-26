@@ -4,6 +4,7 @@
 
 # Deploy
 .env
+schema.gql
 
 # Logs
 logs
