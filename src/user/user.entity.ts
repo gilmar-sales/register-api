@@ -7,6 +7,8 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
+import EncryptTransformer from './transformers/encrypt.transformer';
+
 @ObjectType()
 @Entity({ name: 'users' })
 export class User {
@@ -23,7 +25,7 @@ export class User {
   email: string;
 
   @HideField()
-  @Column()
+  @Column({ transformer: EncryptTransformer })
   password: string;
 
   @Field()
