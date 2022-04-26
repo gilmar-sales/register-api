@@ -1,0 +1,12 @@
+version: '3.1'
+
+services:
+  db:
+    container_name: register_db
+    image: postgres:14.2-bullseye
+    environment:
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    ports:
+      - ${DATABASE_PORT}:5432
