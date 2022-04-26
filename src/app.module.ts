@@ -6,6 +6,7 @@ import { ApolloDriverConfig } from '@nestjs/apollo';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
+import { RegisterModule } from './register/register.module';
 
 import typeOrmConfig from './config/typeorm.config';
 import graphqlConfig from './config/graphql.config';
@@ -15,6 +16,7 @@ import graphqlConfig from './config/graphql.config';
     TypeOrmModule.forRoot(typeOrmConfig),
     GraphQLModule.forRoot<ApolloDriverConfig>(graphqlConfig),
     UserModule,
+    RegisterModule,
   ],
   controllers: [AppController],
   providers: [AppService],
