@@ -12,8 +12,8 @@ export class RegisterService {
     private readonly repository: Repository<Register>,
   ) {}
 
-  async createRegister(data: CreateRegisterDTO) {
-    const register = this.repository.create(data);
+  async createRegister(userId: number, data: CreateRegisterDTO) {
+    const register = this.repository.create({ userId: userId, ...data });
 
     return this.repository.save(register);
   }

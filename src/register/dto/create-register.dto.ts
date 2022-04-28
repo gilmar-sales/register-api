@@ -9,7 +9,4 @@ export default class CreateRegisterDTO {
 
   @Field()
   type: 'in' | 'out';
-
-  @Field()
-  userId: number;
 }

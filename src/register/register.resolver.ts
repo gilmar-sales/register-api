@@ -11,15 +11,19 @@ import { RoleGuard } from 'src/auth/guard/role.guard';
 export class RegisterResolver {
   constructor(private readonly registerService: RegisterService) {}
 
-  @UseGuards(new AuthGuard())
+  @UseGuards(AuthGuard)
   @Mutation(() => Register)
   async createRegister(
     @Args('data') data: CreateRegisterDTO,
+    @Context() context,
   ): Promise<Register> {
-    return this.registerService.createRegister(data);
+    const userId: number = context.req.user.id;
+    console.log(userId);
+
+    return this.registerService.createRegister(userId, data);
   }
 
-  @UseGuards(AuthGuard, RoleGuard)
+  @UseGuards(RoleGuard)
   @Query(() => [Register])
   async findAllRegisters(): Promise<Register[]> {
     return this.registerService.findAllRegisters();
