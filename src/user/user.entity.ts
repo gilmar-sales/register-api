@@ -10,6 +10,7 @@ import {
 
 import { Register } from 'src/register/register.entity';
 import EncryptTransformer from './transformers/encrypt.transformer';
+import Role from 'src/@types/Role';
 
 @ObjectType()
 @Entity({ name: 'users' })
@@ -32,7 +33,7 @@ export class User {
 
   @Field()
   @Column({ default: 'collaborator' })
-  role: string;
+  role: Role;
 
   @Field()
   @CreateDateColumn()
