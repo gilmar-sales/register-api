@@ -17,7 +17,6 @@ export class CreateUserDTO {
 
   @Field()
   @IsEmail()
-  @IsNotEmpty()
   email: string;
 
   @Field()
