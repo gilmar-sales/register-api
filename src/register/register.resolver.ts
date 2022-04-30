@@ -32,7 +32,7 @@ export class RegisterResolver {
 
     const register = this.registerService.createRegister(userId, data);
 
-    this.pubSub.publish('registerAdded', { registerAdded: register });
+    this.pubSub.publish('registerCreated', { registerCreated: register });
 
     return register;
   }
@@ -52,9 +52,9 @@ export class RegisterResolver {
   }
 
   @Subscription(() => Register, {
-    name: 'registerAdded',
+    name: 'registerCreated',
   })
-  async registerAddHandler() {
-    return this.pubSub.asyncIterator('registerAdded');
+  async registerCreationHandler() {
+    return this.pubSub.asyncIterator('registerCreated');
   }
 }
