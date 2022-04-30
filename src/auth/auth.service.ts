@@ -14,7 +14,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async validadeUser(email: string, password: string): Promise<PayloadDTO> {
+  async validateUser(email: string, password: string): Promise<PayloadDTO> {
     const user = await this.userService.findByEmail(email);
 
     if (!user) throw new BadRequestException('email not registered');

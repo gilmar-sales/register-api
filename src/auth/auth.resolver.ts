@@ -10,7 +10,7 @@ export class AuthResolver {
 
   @Mutation(() => PayloadDTO)
   async login(@Args('data') data: AuthDTO) {
-    const response = await this.authService.validadeUser(
+    const response = await this.authService.validateUser(
       data.email,
       data.password,
     );
