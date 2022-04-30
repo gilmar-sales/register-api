@@ -29,7 +29,6 @@ export class RegisterResolver {
     @Context() context,
   ): Promise<Register> {
     const userId: number = context.req.user.id;
-    console.log(userId);
 
     const register = this.registerService.createRegister(userId, data);
 
