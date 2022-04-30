@@ -43,6 +43,12 @@ export class RegisterResolver {
     return this.registerService.findAllRegisters();
   }
 
+  @UseGuards(RoleGuard)
+  @Query(() => [Register])
+  async findRegistersByUser(@Args('userId') userId: number) {
+    return this.registerService.findRegistersByUser(userId);
+  }
+
   @UseGuards(AuthGuard)
   @Query(() => [Register])
   async findUserRegisters(@Context() context) {
