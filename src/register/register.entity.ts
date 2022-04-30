@@ -29,7 +29,8 @@ export class Register {
   @Column()
   userId: number;
 
-  @ManyToOne(() => User, (user) => user.registerConnection)
+  @Field(() => User)
+  @ManyToOne(() => User, (user) => user.registers)
   @JoinColumn({ name: 'user_id' })
-  userConnection: Promise<User>;
+  user: Promise<User>;
 }
