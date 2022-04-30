@@ -43,6 +43,7 @@ export class User {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @OneToMany(() => Register, (register) => register.userConnection)
-  registerConnection: Promise<Register[]>;
+  @Field(() => [Register])
+  @OneToMany(() => Register, (register) => register.user)
+  registers: Promise<Register[]>;
 }
