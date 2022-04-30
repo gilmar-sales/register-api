@@ -52,6 +52,12 @@ $ npm install
 
 ## Running the app
 
+### First setup the docker container to the database
+```bash
+$ docker-compose up -d
+```
+
+### Then run the application
 ```bash
 # development
 $ npm run start
