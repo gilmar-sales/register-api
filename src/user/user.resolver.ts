@@ -11,7 +11,6 @@ import { AuthGuard } from 'src/auth/guard/auth.guard';
 export class UserResolver {
   constructor(private readonly userService: UserService) {}
 
-  @UseGuards(RoleGuard)
   @Mutation(() => User)
   async createUser(@Args('data') data: CreateUserDTO): Promise<User> {
     return await this.userService.createUser(data);
