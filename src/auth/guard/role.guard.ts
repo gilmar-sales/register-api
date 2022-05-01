@@ -1,25 +1,28 @@
-import {
-  ExecutionContext,
-  ForbiddenException,
-  Injectable,
-} from '@nestjs/common';
+import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { GqlExecutionContext } from '@nestjs/graphql';
-import { AuthGuard } from '@nestjs/passport';
+import Role from 'src/@types/Role';
+import { Reflector } from '@nestjs/core';
+import { User } from 'src/user/user.entity';
+import { ROLES_KEY } from '../decorator/roles.decorator';
 
 @Injectable()
-export class RoleGuard extends AuthGuard('jwt') {
-  getRequest(context: ExecutionContext): Request {
-    const ctx = GqlExecutionContext.create(context);
-    return ctx.getContext().req;
-  }
+export class RoleGuard implements CanActivate {
+  constructor(private readonly reflector: Reflector) {}
 
-  handleRequest(error, user, info) {
-    if (error || info || !user) {
-      throw error || info || new ForbiddenException();
+  canActivate(context: ExecutionContext): boolean {
+    const ctx = GqlExecutionContext.create(context);
+    const requiredRoles = this.reflector.get<Role[]>(
+      ROLES_KEY,
+      ctx.getHandler(),
+    );
+
+    if (!requiredRoles) {
+      return true;
     }
 
-    if (user.role !== 'administrator') throw new ForbiddenException();
+    const request = ctx.getContext().req;
+    const user: User = request.user;
 
-    return user;
+    return requiredRoles.some((role) => user.role === role);
   }
 }
