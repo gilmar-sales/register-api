@@ -3,9 +3,20 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 const graphqlConfig: ApolloDriverConfig = {
   driver: ApolloDriver,
   autoSchemaFile: 'schema.gql',
+  context: async ({ req, connection }) => {
+    if (connection) {
+      return { req: connection.context };
+    }
+    return { req };
+  },
   subscriptions: {
-    'graphql-ws': true,
-    'subscriptions-transport-ws': true,
+    'subscriptions-transport-ws': {
+      onConnect: (connectionParams) => {
+        return {
+          req: { ...connectionParams },
+        };
+      },
+    },
   },
 };
 
