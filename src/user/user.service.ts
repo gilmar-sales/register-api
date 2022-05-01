@@ -20,11 +20,11 @@ export class UserService {
     return this.repository.save(user);
   }
 
-  async deleteUser(data: number): Promise<boolean> {
+  async deleteUser(userId: number): Promise<boolean> {
     const user = await this.repository
       .createQueryBuilder()
       .delete()
-      .where('id = :id', { id: data })
+      .where('id = :id', { id: userId })
       .execute();
 
     return Boolean(user.affected);

@@ -18,8 +18,8 @@ export class UserResolver {
 
   @UseGuards(RoleGuard)
   @Mutation(() => Boolean)
-  async deleteUser(@Args('data') data: number): Promise<boolean> {
-    return await this.userService.deleteUser(data);
+  async deleteUser(@Args('userId') userId: number): Promise<boolean> {
+    return await this.userService.deleteUser(userId);
   }
 
   @UseGuards(AuthGuard)
